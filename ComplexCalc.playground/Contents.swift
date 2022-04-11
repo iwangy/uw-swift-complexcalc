@@ -3,7 +3,83 @@ print("Welcome back to the UW Calculator")
 // Your job is to fill out Calculator so all the expressions
 // below both compile and return "true"
 class Calculator {
+    func add(lhs: Int, rhs: Int) -> Int {
+        return lhs + rhs
+    }
     
+    func add(_ nums: [Int]) -> Int {
+        var sum = 0
+        for index in 0...(nums.count - 1) {
+            sum += nums[index]
+        }
+        return sum
+    }
+    
+    func add(lhs: (Int, Int), rhs: (Int, Int)) -> (Int, Int) {
+        return (lhs.0 + rhs.0, lhs.1 + rhs.1)
+    }
+    
+    func add(lhs:[String: Int], rhs:[String: Int]) -> [String: Int] {
+        var sum = [String: Int]()
+        for (key, val) in lhs {
+            sum[key] = val + rhs[key]!
+        }
+        
+        return sum
+    }
+    
+    func subtract(lhs: Int, rhs: Int) -> Int {
+        return lhs - rhs
+    }
+    
+    func subtract(lhs: (Int, Int), rhs: (Int, Int)) -> (Int, Int) {
+        return (lhs.0 - rhs.0, lhs.1 - rhs.1)
+    }
+    
+    func subtract(lhs:[String: Int], rhs:[String: Int]) -> [String: Int] {
+        var sum = [String: Int]()
+        for (key, val) in lhs {
+            sum[key] = val - rhs[key]!
+        }
+        
+        return sum
+    }
+    
+    func multiply(lhs: Int, rhs: Int) -> Int {
+        return lhs * rhs
+    }
+    
+    func multiply(_ nums: [Int]) -> Int {
+        var product = 1
+        for index in 0...(nums.count - 1) {
+            product *= nums[index]
+        }
+        return product
+    }
+    
+    func divide(lhs: Int, rhs: Int) -> Int {
+        return lhs / rhs
+    }
+    
+    func count(_ nums: [Int]) -> Int {
+        return nums.count
+    }
+    
+    func avg(_ nums: [Int]) -> Int {
+        return add(nums) / count(nums)
+    }
+    
+    func mathOp(lhs: Int, rhs: Int, op:(Int, Int) -> Int ) -> Int {
+        return op(lhs, rhs)
+    }
+    
+    func mathOp(args: [Int], beg: Int, op: (Int, Int) -> Int) -> Int {
+        var output = beg
+        for i in args {
+            output = op(output, i)
+        }
+        return output
+    }
 }
 
 let calc = Calculator()  // Don't change this declaration name; it's used in all the tests below
@@ -17,7 +93,7 @@ calc.subtract(lhs: 2, rhs: 2) == 0
 calc.multiply(lhs: 2, rhs: 2) == 4
 calc.divide(lhs: 2, rhs: 2) == 1
 
-calc.mathOp(lhs: 5, rhs: 5, op: { (lhs: Int, rhs: Int) -> Int in (lhs + rjs) + (lhs * rhs) }) == 35
+calc.mathOp(lhs: 5, rhs: 5, op: { (lhs: Int, rhs: Int) -> Int in (lhs + rhs) + (lhs * rhs) }) == 35
     // This style is one way of writing an anonymous function
 calc.mathOp(lhs: 10, rhs: -5, op: { ($0 + $1) + ($0 - $1) }) == 20
     // This is the second, more terse, style; either works
